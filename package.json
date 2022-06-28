@@ -1,0 +1,38 @@
+{
+  "name": "lyvely-words-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.8.5",
+    "@mui/x-data-grid": "^5.12.2",
+    "axios": "^0.27.2",
+    "moment": "^2.29.3",
+    "next": "12.1.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.4.0",
+    "swiper": "^8.2.4",
+    "swr": "^1.3.0"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "^12.1.6",
+    "autoprefixer": "^10.4.7",
+    "eslint": "8.18.0",
+    "eslint-config-next": "12.1.6",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "gsap": "^3.10.4",
+    "next-seo": "^5.4.0",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.4"
+  }
+}
