@@ -1,6 +1,6 @@
 # Celebrate Everyone 🎉🎊🥳 🥇🏆🥂🍾🍻
 
-Shared-moments allow you create a digital card for someone you care aabout and allow you and several other people to share your heart and good intentions towards that person
+Lyvely-Words allow you create a digital card for someone you care aabout and allow you and several other people to share your heart and good intentions towards that person
 
 ## ➕ Contributing
 
@@ -20,4 +20,4 @@ Contributions are welcomes from everyone. If you are contributing code then you 
 
 ## 📑License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Ripple-Effect-Community/shared-moments/blob/main/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Ripple-Effect-Community/lyvely-words/blob/main/LICENSE) file for details
