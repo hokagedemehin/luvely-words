@@ -12,18 +12,26 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+// import AdbIcon from '@mui/icons-material/Adb';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import CssBaseline from '@mui/material/CssBaseline';
+import Image from 'next/image';
+import luvely_words_2 from '../../public/home/luvely_words_2.png';
+import { useRouter } from 'next/router';
+import { useSession, signIn, signOut } from 'next-auth/react';
+// import { useGlobal } from '../../lib/context/GlobalData';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Account', 'Dashboard'];
+// const settings = [
+//   {
+//     id: 1, name: 'Profile', link: '/profile'
+//   }
+// ];
 
 function ElevationScroll(props) {
   const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
+
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -36,6 +44,11 @@ function ElevationScroll(props) {
 }
 
 const Header = (props) => {
+  const router = useRouter();
+  // const { globalSession } = useGlobal();
+
+  const { data: session } = useSession();
+  console.log('session :>> ', session);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -48,6 +61,7 @@ const Header = (props) => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+    // router.push('/blog');
   };
 
   const handleCloseUserMenu = () => {
@@ -76,13 +90,25 @@ const Header = (props) => {
           className={`${
             !headerColor
               ? 'bg-transparent'
-              : 'bg-white bg-opacity-60 backdrop-filter backdrop-blur-lg'
+              : 'bg-white bg-opacity-60 backdrop-blur-lg backdrop-filter'
           } text-black `}
         >
           <Container maxWidth='xl'>
             <Toolbar disableGutters>
-              <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-              <Typography
+              <div
+                className='hidden cursor-pointer md:flex'
+                onClick={() => router.push('/')}
+              >
+                <Image
+                  src={luvely_words_2}
+                  alt='website logo'
+                  width={240}
+                  height={50}
+                  placeholder='blur'
+                />
+              </div>
+              {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+              {/* <Typography
                 variant='h6'
                 noWrap
                 component='a'
@@ -98,9 +124,9 @@ const Header = (props) => {
                 }}
               >
                 LOGO
-              </Typography>
+              </Typography> */}
 
-              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <Box className='flex grow md:hidden'>
                 <IconButton
                   size='large'
                   aria-label='account of current user'
@@ -125,9 +151,10 @@ const Header = (props) => {
                   }}
                   open={Boolean(anchorElNav)}
                   onClose={handleCloseNavMenu}
-                  sx={{
-                    display: { xs: 'block', md: 'none' },
-                  }}
+                  // sx={{
+                  //   display: { xs: 'block', md: 'none' },
+                  // }}
+                  className='block md:hidden'
                 >
                   {pages.map((page) => (
                     <MenuItem key={page} onClick={handleCloseNavMenu}>
@@ -136,7 +163,19 @@ const Header = (props) => {
                   ))}
                 </Menu>
               </Box>
-              <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+              <div
+                className='flex grow cursor-pointer md:hidden'
+                onClick={() => router.push('/')}
+              >
+                <Image
+                  src={luvely_words_2}
+                  alt='website logo'
+                  width={180}
+                  height={40}
+                  placeholder='blur'
+                />
+              </div>
+              {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
               <Typography
                 variant='h5'
                 noWrap
@@ -154,8 +193,11 @@ const Header = (props) => {
                 }}
               >
                 LOGO
-              </Typography>
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              </Typography> */}
+              <Box
+                className='hidden grow md:flex'
+                // sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
+              >
                 {pages.map((page) => (
                   <Button
                     key={page}
@@ -166,39 +208,54 @@ const Header = (props) => {
                   </Button>
                 ))}
               </Box>
-
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title='Open settings'>
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt='Remy Sharp'
-                      src='/static/images/avatar/2.jpg'
-                    />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id='menu-appbar'
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
+              {session ? (
+                <Box
+                  // sx={{ flexGrow: 0 }}
+                  className='grow-0'
                 >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign='center'>{setting}</Typography>
+                  <Tooltip title='Open settings'>
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar
+                        alt={session?.user?.email.split()[0]}
+                        // src='/static/images/avatar/2.jpg'
+                        src={session?.user?.image}
+                      />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: '45px' }}
+                    id='menu-appbar'
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings.map((setting) => (
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Typography textAlign='center'>{setting}</Typography>
+                      </MenuItem>
+                    ))}
+                    <MenuItem
+                      onClick={() => {
+                        signOut();
+                        handleCloseUserMenu();
+                      }}
+                    >
+                      <Typography textAlign='center'>Log Out</Typography>
                     </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
+                  </Menu>
+                </Box>
+              ) : (
+                <Button onClick={() => signIn()}>Login</Button>
+              )}
             </Toolbar>
           </Container>
         </AppBar>

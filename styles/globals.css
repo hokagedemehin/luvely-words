@@ -19,3 +19,16 @@ a {
 * {
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: 'Quartzo';
+  src: url('../public/fonts/QuartzoBold.ttf');
+}
+@font-face {
+  font-family: 'Typographica';
+  src: url('../public/fonts/Typographica.ttf');
+}
+
+.hero-fam {
+  font-family: 'Typographica', 'sans-serif';
+}

@@ -8,6 +8,7 @@ import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
+import Footer from './Footer';
 
 function ScrollTop() {
   // const { children, window } = props;
@@ -46,21 +47,25 @@ function ScrollTop() {
   );
 }
 
-const Layout = ({ children, name, desc }) => {
+const Layout = ({ children }) => {
   return (
     <div>
       <Head>
-        <title>Luvely Words - {name}</title>
-        <meta name='description' content={desc} />
-        <link rel='icon' href='/favicon.ico' />
+        {/* <title>Luvely Words - {name}</title>
+        <meta name='description' content={desc} /> */}
+        <link rel='icon' href='/luvely_words.png' />
+        <link rel='preconnect' href='https://fonts.googleapis.com' />
+        <link
+          rel='preconnect'
+          href='https://fonts.gstatic.com'
+          crossOrigin='true'
+        />
       </Head>
       <Header />
       <Toolbar id='back-to-top-anchor' />
-      <main className='min-h-screen px-5 flex flex-col justify-center items-center'>
-        {children}
-      </main>
+      <main className=' mx-auto min-h-screen max-w-screen-xl '>{children}</main>
       <ScrollTop />
-
+      <Footer />
       {/* </ScrollTop> */}
     </div>
   );
