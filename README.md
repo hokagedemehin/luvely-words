@@ -1,6 +1,6 @@
 # Celebrate Everyone 🎉🎊🥳 🥇🏆🥂🍾🍻
 
-Lyvely-Words allow you create a digital card for someone you care aabout and allow you and several other people to share your heart and good intentions towards that person
+Luvely-Words allow you create a digital card for someone you care aabout and allow you and several other people to share your heart and good intentions towards that person
 
 ## ➕ Contributing
 
