@@ -13,6 +13,7 @@ import { unstable_getServerSession } from 'next-auth/next';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -95,7 +96,12 @@ const LoginPage = ({ providers, csrfToken }) => {
   return (
     <div className='flex flex-col items-center justify-center gap-6'>
       {errorName && (
-        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Snackbar
+          open={open}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          autoHideDuration={3000}
+          onClose={handleClose}
+        >
           <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
             {errors[errorName]}
           </Alert>
@@ -173,6 +179,18 @@ const LoginPage = ({ providers, csrfToken }) => {
               startIcon={<FacebookIcon />}
             >
               Sign in with {providers?.facebook?.id}
+            </Button>
+          </div>
+        )}
+        {providers?.twitter && (
+          <div className='w-full'>
+            <Button
+              variant='outlined'
+              onClick={() => signIn(providers?.twitter?.id)}
+              className=' w-full border border-solid border-[#1D9BF0] capitalize text-[#1D9BF0] '
+              startIcon={<TwitterIcon />}
+            >
+              Sign in with {providers?.twitter?.id}
             </Button>
           </div>
         )}
