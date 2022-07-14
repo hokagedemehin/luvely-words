@@ -57,8 +57,9 @@ const ProfilePage = ({ profileData }) => {
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/user-profiles?${query}` +
       session?.user?.email,
     fetcher,
-    { fallbackData: profileData }
+    { fallbackData: profileData, refreshInterval: 1000 }
   );
+
   // console.log('session :>> ', session);
   // console.log('profileInfo', profileInfo);
   // const router = useRouter();
