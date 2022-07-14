@@ -4,7 +4,7 @@ import Cropper from 'react-easy-crop';
 
 // import { withStyles } from '@material-ui/core/styles';
 // import ImgDialog from './ImgDialog';
-import getCroppedImg from './cropImage';
+import getCroppedImg from './cropimage';
 // import { styles } from './styles';
 import {
   Button,
