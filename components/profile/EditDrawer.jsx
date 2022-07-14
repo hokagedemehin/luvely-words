@@ -189,7 +189,7 @@ const EditDrawerComp = ({ profileInfo, setDrawerState }) => {
             </div>
           </form>
         </div>
-        <div className='absolute bottom-3 flex w-full justify-end'>
+        <div className='mt-10 flex w-full justify-end'>
           <LoadingButton
             className='mx-4 w-full'
             variant='outlined'
