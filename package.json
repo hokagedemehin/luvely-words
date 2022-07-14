@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dicebear/adventurer": "^4.10.3",
+    "@dicebear/avatars": "^4.10.3",
+    "@dicebear/micah": "^4.10.3",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
@@ -26,8 +29,10 @@
     "next": "12.1.6",
     "next-auth": "^4.9.0",
     "nodemailer": "^6.7.7",
+    "qs": "^6.11.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-easy-crop": "^4.4.0",
     "react-icons": "^4.4.0",
     "react-topbar-progress-indicator": "^4.1.1",
     "swiper": "^8.2.4",

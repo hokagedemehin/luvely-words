@@ -25,28 +25,22 @@ const Footer = () => {
                 Home
               </a>
               <a
-                href='#'
+                href='#cardWorks'
                 className='text-gray-500 transition duration-300 hover:-translate-y-1 hover:text-sky-500 active:text-sky-600'
               >
-                Investor Relations
+                Process
+              </a>
+              <a
+                href='#contribute'
+                className='text-gray-500 transition duration-300 hover:-translate-y-1 hover:text-sky-500 active:text-sky-600'
+              >
+                Samples
               </a>
               <a
                 href='#'
                 className='text-gray-500 transition duration-300 hover:-translate-y-1 hover:text-sky-500 active:text-sky-600'
               >
-                Jobs
-              </a>
-              <a
-                href='#'
-                className='text-gray-500 transition duration-300 hover:-translate-y-1 hover:text-sky-500 active:text-sky-600'
-              >
-                Press
-              </a>
-              <a
-                href='#'
-                className='text-gray-500 transition duration-300 hover:-translate-y-1 hover:text-sky-500 active:text-sky-600'
-              >
-                Blog
+                Sponsor
               </a>
             </nav>
             {/* <!-- nav - end --> */}
