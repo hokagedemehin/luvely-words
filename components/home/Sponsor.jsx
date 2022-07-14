@@ -3,8 +3,8 @@
 import { Button } from '@mui/material';
 import Image from 'next/image';
 // import { useRouter } from 'next/router';
-import sponsor from '../../public/home/sponsor.png';
-const Sponsor = () => {
+import sponsor_2 from '../../public/home/sponsor_2.png';
+const SponsorPage = () => {
   // const router = useRouter();
   return (
     <div data-aos='flip-up' data-aos-duration='1500'>
@@ -56,7 +56,7 @@ const Sponsor = () => {
                 {/* small screens */}
                 <Image
                   layout='fill'
-                  src={sponsor}
+                  src={sponsor_2}
                   alt='Sponsor The Project'
                   placeholder='blur'
                   objectFit='contain'
@@ -66,10 +66,10 @@ const Sponsor = () => {
                 {/* large screens */}
                 <Image
                   layout='fill'
-                  src={sponsor}
+                  src={sponsor_2}
                   alt='Sponsor The Project'
                   placeholder='blur'
-                  objectFit='cover'
+                  objectFit='contain'
                 />
               </div>
             </div>
@@ -81,4 +81,4 @@ const Sponsor = () => {
   );
 };
 
-export default Sponsor;
+export default SponsorPage;

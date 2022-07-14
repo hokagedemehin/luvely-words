@@ -1,4 +1,4 @@
-import { Button, Divider, TextField, Typography } from '@mui/material';
+import { Divider, TextField, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import {
   getCsrfToken,
@@ -17,7 +17,8 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-
+import Image from 'next/image';
+import luvely_words_2 from '../../public/home/luvely_words_2.png';
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
@@ -27,15 +28,28 @@ const LoginPage = ({ providers, csrfToken }) => {
   const { data: session } = useSession();
   // console.log('router =>', router);
   // const [inputEmail, setInputEmail] = useState('');
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [gitHubLoading, setGitHubLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [facebookLoading, setFacebookLoading] = useState(false);
+  const [twitterLoading, setTwitterLoading] = useState(false);
 
-  // const handleChange = (e) => {
-  //   setInputEmail(e.target.value);
-  // };
+  const handleSignIn = (provider) => {
+    signIn(provider);
+    if (provider === 'google') {
+      setGoogleLoading(true);
+    } else if (provider === 'facebook') {
+      setFacebookLoading(true);
+    } else if (provider === 'twitter') {
+      setTwitterLoading(true);
+    } else {
+      setGitHubLoading(true);
+    }
+  };
 
-  // const handleSubmit = () => {
-  //   setIsLoading(true);
-  // };
+  const handleSubmit = () => {
+    setIsLoading(true);
+  };
   const [open, setOpen] = useState(false);
 
   const errors = {
@@ -61,20 +75,9 @@ const LoginPage = ({ providers, csrfToken }) => {
     }
   }, [router]);
 
-  const errorName = Object.keys(errors).filter((key) => key.includes(getError));
+  const errorName = Object.keys(errors).filter((key) => key == getError);
 
   // console.log('errorName :>> ', errorName);
-
-  // let finalError;
-  // if (errorName?.length !== 0) {
-  //   finalError = errorName.reduce((obj, key) => {
-  //     return Object.assign(obj, { [key]: errors[key] });
-  //   });
-  // }
-
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -107,14 +110,34 @@ const LoginPage = ({ providers, csrfToken }) => {
           </Alert>
         </Snackbar>
       )}
-      <Typography className='py-10 text-4xl font-bold'>Sign In Page</Typography>
+      <Typography
+        data-aos='fade-down'
+        data-aos-duration='1500'
+        className='bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text py-10 text-4xl font-black text-transparent'
+      >
+        Sign In Page
+      </Typography>
       <div className='flex w-fit flex-col items-center justify-center space-y-4 rounded-xl border border-solid border-gray-200 px-8 py-6 shadow-md'>
+        <div
+          data-aos='fade-up'
+          data-aos-duration='1500'
+          data-aos-delay='100'
+          className='relative h-14 w-60 md:h-20 md:w-80'
+        >
+          <Image
+            src={luvely_words_2}
+            alt='Lovely Words Logo'
+            layout='fill'
+            placeholder='blur'
+          />
+        </div>
         {providers?.email && (
-          <div>
+          <div data-aos='zoom-in' data-aos-duration='1500' className='w-full'>
             <form
               method='post'
               action='/api/auth/signin/email'
               className='flex flex-col space-y-3'
+              onSubmit={handleSubmit}
             >
               <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
 
@@ -125,12 +148,13 @@ const LoginPage = ({ providers, csrfToken }) => {
                 label='Email Address'
                 variant='outlined'
                 size='small'
+                required
                 // value={inputEmail}
                 // onChange={handleChange}
               />
 
               <LoadingButton
-                // loading={isLoading}
+                loading={isLoading}
                 loadingIndicator='loading...'
                 type='submit'
                 // onClick={handleSubmit}
@@ -147,51 +171,79 @@ const LoginPage = ({ providers, csrfToken }) => {
           </div>
         )}
         {providers?.github && (
-          <div className='w-full'>
-            <Button
+          <div
+            data-aos='zoom-in'
+            data-aos-duration='1500'
+            data-aos-delay='100'
+            className='w-full'
+          >
+            <LoadingButton
               variant='outlined'
-              onClick={() => signIn(providers?.github?.id)}
+              onClick={() => handleSignIn(providers?.github?.id)}
+              loading={gitHubLoading}
+              loadingPosition='start'
               className=' w-full border border-solid border-black capitalize text-black'
               startIcon={<GitHubIcon />}
             >
               Sign in with {providers?.github?.id}
-            </Button>
+            </LoadingButton>
           </div>
         )}
         {providers?.google && (
-          <div className='w-full'>
-            <Button
+          <div
+            data-aos='zoom-in'
+            data-aos-duration='1500'
+            data-aos-delay='150'
+            className='w-full'
+          >
+            <LoadingButton
               variant='outlined'
-              onClick={() => signIn(providers?.google?.id)}
+              onClick={() => handleSignIn(providers?.google?.id)}
+              loading={googleLoading}
+              loadingPosition='start'
               className=' w-full border border-solid border-[#d62d20] capitalize text-[#d62d20]'
               startIcon={<GoogleIcon />}
             >
               Sign in with {providers?.google?.id}
-            </Button>
+            </LoadingButton>
           </div>
         )}
         {providers?.facebook && (
-          <div className='w-full'>
-            <Button
+          <div
+            data-aos='zoom-in'
+            data-aos-duration='1500'
+            data-aos-delay='200'
+            className='w-full'
+          >
+            <LoadingButton
               variant='outlined'
-              onClick={() => signIn(providers?.facebook?.id)}
+              onClick={() => handleSignIn(providers?.facebook?.id)}
+              loading={facebookLoading}
+              loadingPosition='start'
               className=' w-full border border-solid border-[#3b5998] capitalize text-[#3b5998] '
               startIcon={<FacebookIcon />}
             >
               Sign in with {providers?.facebook?.id}
-            </Button>
+            </LoadingButton>
           </div>
         )}
         {providers?.twitter && (
-          <div className='w-full'>
-            <Button
+          <div
+            data-aos='zoom-in'
+            data-aos-duration='1500'
+            data-aos-delay='250'
+            className='w-full'
+          >
+            <LoadingButton
               variant='outlined'
-              onClick={() => signIn(providers?.twitter?.id)}
+              onClick={() => handleSignIn(providers?.twitter?.id)}
               className=' w-full border border-solid border-[#1D9BF0] capitalize text-[#1D9BF0] '
+              loading={twitterLoading}
+              loadingPosition='start'
               startIcon={<TwitterIcon />}
             >
               Sign in with {providers?.twitter?.id}
-            </Button>
+            </LoadingButton>
           </div>
         )}
       </div>

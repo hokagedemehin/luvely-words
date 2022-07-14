@@ -18,16 +18,28 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Image from 'next/image';
 import luvely_words_2 from '../../public/home/luvely_words_2.png';
 import { useRouter } from 'next/router';
-import { useSession, signIn, signOut } from 'next-auth/react';
-// import { useGlobal } from '../../lib/context/GlobalData';
+import { signIn, signOut } from 'next-auth/react';
+import { useGlobal } from '../../lib/context/GlobalData';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard'];
-// const settings = [
-//   {
-//     id: 1, name: 'Profile', link: '/profile'
-//   }
-// ];
+// const pages = ['Products', 'Pricing', 'Blog'];
+const pages = [
+  { id: 0, name: 'Process', link: '/#cardWorks' },
+  { id: 1, name: 'Samples', link: '/#cardSamples' },
+  { id: 2, name: 'Sponsor', link: '/#contribute' },
+];
+// const settings = ['Profile', 'Account', 'Dashboard'];
+const settings = [
+  {
+    id: 0,
+    name: 'Profile',
+    link: '/profile',
+  },
+  {
+    id: 1,
+    name: 'Dashboard',
+    link: '/dashboard',
+  },
+];
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -45,10 +57,10 @@ function ElevationScroll(props) {
 
 const Header = (props) => {
   const router = useRouter();
-  // const { globalSession } = useGlobal();
+  const { globalSession, setGlobalSession } = useGlobal();
 
-  const { data: session } = useSession();
-  console.log('session :>> ', session);
+  // const { data: session } = useSession();
+  // console.log('session :>> ', session);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -63,9 +75,24 @@ const Header = (props) => {
     setAnchorElNav(null);
     // router.push('/blog');
   };
+  const handleNavLinks = (href) => {
+    setAnchorElNav(null);
+    router.push(href);
+  };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handeSignOut = () => {
+    setGlobalSession();
+    signOut();
+    handleCloseUserMenu();
+  };
+
+  const handleUserMenu = (href) => {
+    setAnchorElUser(null);
+    router.push(href);
   };
 
   const [headerColor, setHeaderColor] = useState(false);
@@ -157,8 +184,11 @@ const Header = (props) => {
                   className='block md:hidden'
                 >
                   {pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Typography textAlign='center'>{page}</Typography>
+                    <MenuItem
+                      key={page?.id}
+                      onClick={() => handleNavLinks(page?.link)}
+                    >
+                      <Typography textAlign='center'>{page?.name}</Typography>
                     </MenuItem>
                   ))}
                 </Menu>
@@ -200,25 +230,26 @@ const Header = (props) => {
               >
                 {pages.map((page) => (
                   <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
+                    key={page?.id}
+                    onClick={() => handleNavLinks(page?.link)}
                     sx={{ my: 2, color: 'black', display: 'block' }}
                   >
-                    {page}
+                    {page?.name}
                   </Button>
                 ))}
               </Box>
-              {session ? (
+              {globalSession ? (
                 <Box
                   // sx={{ flexGrow: 0 }}
                   className='grow-0'
                 >
-                  <Tooltip title='Open settings'>
+                  <Tooltip title='Open Dashboard'>
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <Avatar
-                        alt={session?.user?.email.split()[0]}
+                        alt={globalSession?.email?.split()[0]}
                         // src='/static/images/avatar/2.jpg'
-                        src={session?.user?.image}
+                        // src={session?.user?.image}
+                        src={globalSession?.imageURL}
                       />
                     </IconButton>
                   </Tooltip>
@@ -239,14 +270,18 @@ const Header = (props) => {
                     onClose={handleCloseUserMenu}
                   >
                     {settings.map((setting) => (
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        <Typography textAlign='center'>{setting}</Typography>
+                      <MenuItem
+                        key={setting?.id}
+                        onClick={() => handleUserMenu(setting?.link)}
+                      >
+                        <Typography textAlign='center'>
+                          {setting?.name}
+                        </Typography>
                       </MenuItem>
                     ))}
                     <MenuItem
                       onClick={() => {
-                        signOut();
-                        handleCloseUserMenu();
+                        handeSignOut();
                       }}
                     >
                       <Typography textAlign='center'>Log Out</Typography>
