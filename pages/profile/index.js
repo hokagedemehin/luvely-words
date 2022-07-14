@@ -57,8 +57,9 @@ const ProfilePage = ({ profileData }) => {
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/user-profiles?${query}` +
       session?.user?.email,
     fetcher,
-    { fallbackData: profileData }
+    { fallbackData: profileData, refreshInterval: 3000 }
   );
+
   // console.log('session :>> ', session);
   // console.log('profileInfo', profileInfo);
   // const router = useRouter();
@@ -79,15 +80,15 @@ const ProfilePage = ({ profileData }) => {
   }, [session, data]);
 
   return (
-    <div className='mx-4 '>
+    <div className=''>
       <Layout>
         {profileInfo && (
-          <div className='flex flex-col items-center justify-center pb-10'>
+          <div className='mx-4 flex flex-col items-center justify-center pb-10'>
             {/* heading */}
             <div
               data-aos='fade-down'
               data-aos-duration='1500'
-              className='pt-4 pb-10 text-center'
+              className='pt-4 pb-10 text-center '
             >
               <Typography className='bg-gradient-to-r from-indigo-500 to-teal-500 bg-clip-text font-fam3 text-2xl font-black text-transparent md:text-4xl'>
                 Profile Page
